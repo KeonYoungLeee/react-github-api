@@ -1,0 +1,81 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    
+  ],
+  "plugins": ["prettier", "@typescript-eslint"],
+  "rules": {
+    "react/jsx-indent": "off",
+    "react/jsx-indent-props": "off",
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+    "react/no-children-prop": "off",
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": ["error", { // ... spread文法可能
+      "html": "ignore",
+      "custom": "ignore",
+      "exceptions": [""]
+    }],
+    "consistent-return": "off",
+    "import/no-extraneous-dependencies": [
+      "error", {"devDependencies": true
+    }], // '' should be listed in the project's dependencies, not devDependencies.
+    "dot-notation": [2, { "allowPattern": "^[a-z]+(_[a-z]+)+$" }],
+    "no-nested-ternary": "off",
+    "no-underscore-dangle": "warn",
+    // "import/no-unresolved": "off"
+    "camelcase": "off",
+    "@typescript-eslint/camelcase": "off",
+    "react/jsx-pascal-case": [2, {"allowAllCaps": true} ]
+  },
+  "ignorePatterns": ["node_modules/"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": { 
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+      // "typescript": {
+      //   "alwaysTryTypes": true,
+      //   "paths": "./tsconfig.json",
+      // }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [2, { "args": "none" }],
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+        ]
+      },
+    },
+    {
+      "files": ["**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ]
+}

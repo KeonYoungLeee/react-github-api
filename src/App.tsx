@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
-import ListPage from './pages/List/List.index';
+import RepositoryPage from './pages/Repository/Repository.index';
+import IssuesPage from './pages/Issues/Issues.index';
 
 import Error404Page from './pages/Error/404/Error404.index';
 
@@ -17,7 +18,10 @@ const App = () => {
 		<ApolloProvider client={client}>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/list" element={<ListPage />} />
+					<Route path="/" element={<RepositoryPage />}>
+						<Route element={<RepositoryPage />} index />
+					</Route>
+					<Route path="/issues/:id" element={<IssuesPage />} />
 					<Route path="*" element={<Error404Page />} />
 				</Routes>
 			</BrowserRouter>

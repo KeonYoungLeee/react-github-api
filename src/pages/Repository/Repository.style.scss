@@ -1,0 +1,73 @@
+@import '../../styles/common.scss';
+
+.layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  flex-direction: column;
+}
+
+.layout-content {
+  width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.search {
+
+}
+.form-group {
+  position: relative;
+  width: 100%;
+}
+
+.form-text {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid $gray;
+  outline: 0;
+  font-size: 1.3rem;
+  color: $white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: $white;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.search-content {
+  height: 509px;
+  overflow: overlay;
+}
+
+.search-again {
+  margin-top: 15px;
+  color: $search-message;
+}
+
+.content {
+  margin: 15px 0px;
+}
+
+.content h2 {
+  color: white;
+  font-size: 30px;
+  margin-bottom: 3px;
+}
+
+.content p {
+  color: white;
+  font-size: 14px;
+}

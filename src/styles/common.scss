@@ -1,5 +1,18 @@
 @import './reset.scss';
+@import './variable.scss';
 
 * {
   box-sizing: border-box;
+}
+
+/* demo */
+body {
+  font-family: 'Poppins', sans-serif; 
+  align-items: center;
+  min-height: 100vh;
+  background-color:#222222;
+}
+
+a {
+  text-decoration-line: none;
 }

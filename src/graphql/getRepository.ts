@@ -10,6 +10,8 @@ const GET_REPOSITORY_SEARCH = (text: string) => {
 						... on Repository {
 							name
 							description
+							nameWithOwner
+							url
 						}
 					}
 				}
@@ -18,22 +20,4 @@ const GET_REPOSITORY_SEARCH = (text: string) => {
 	`;
 };
 
-const GET_REPOSITORY_COUNT = (text: string, count: number) => {
-	return gql`
-		query {
-			search(query: "${text}", type: REPOSITORY, first: ${count}) {
-				repositoryCount
-				edges {
-					node {
-						... on Repository {
-							name
-							description
-						}
-					}
-				}
-			}
-		}
-	`;
-};
-
-export { GET_REPOSITORY_SEARCH, GET_REPOSITORY_COUNT };
+export { GET_REPOSITORY_SEARCH };

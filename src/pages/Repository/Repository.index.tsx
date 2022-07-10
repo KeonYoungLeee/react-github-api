@@ -2,13 +2,14 @@ import React, { FC, useState, useEffect, useCallback, useRef } from 'react';
 import './Repository.style.scss';
 
 import { Link } from 'react-router-dom';
-import { GET_REPOSITORY_SEARCH, GET_REPOSITORY_COUNT } from '../../graphql/getRepository';
+import { GET_REPOSITORY_SEARCH } from '../../graphql/getRepository';
 import { client } from '../../graphql/client';
 
 const Repository: FC = () => {
 	const [repositoryDatas, setRepositoryDatas] = useState<any>();
 	const [search, setSearch] = useState('');
 	const searchTimeRef = useRef<null | ReturnType<typeof setTimeout>>(null);
+	const [isinfiniteLoading, setIsinfiniteLoading] = useState(false);
 
 	const onChangeSearch = useCallback((eve: React.ChangeEvent<HTMLInputElement>) => {
 		setSearch(eve.target.value);
@@ -38,13 +39,15 @@ const Repository: FC = () => {
 		const searchContent = document.querySelector('#search-content') as HTMLDivElement;
 		const onScroll = async () => {
 			if (searchContent.scrollTop + searchContent.clientHeight > searchContent.scrollHeight - 30) {
-				if (repositoryDatas) {
+				if (repositoryDatas && !isinfiniteLoading) {
+					setIsinfiniteLoading(true);
 					const { data } = await client.query({
-						query: GET_REPOSITORY_COUNT(search, 1),
+						query: GET_REPOSITORY_SEARCH(search),
 					});
 					setRepositoryDatas((prev: any) => {
 						return prev.concat(data.search.edges);
 					});
+					setIsinfiniteLoading(false);
 				}
 			}
 		};
@@ -56,7 +59,7 @@ const Repository: FC = () => {
 				searchContent.removeEventListener('scroll', onScroll);
 			}
 		};
-	}, [search, repositoryDatas]);
+	}, [search, repositoryDatas, isinfiniteLoading]);
 
 	return (
 		<div className="layout">
@@ -74,11 +77,13 @@ const Repository: FC = () => {
 							{repositoryDatas ? (
 								<>
 									{repositoryDatas.map((value: any, valueIndex: number) => {
+										const { nameWithOwner, name, description } = value.node;
+										const owner: string = nameWithOwner.split('/')[0];
 										return (
-											<div key={`name-${valueIndex.toString()}-${value.node.name}`} className="content" id="content">
-												<Link to={`/issues/${value.node.name}`}>
-													<h2>{value.node.name}</h2>
-													<p>{value.node.description}</p>
+											<div key={`name-${valueIndex.toString()}-${name}`} className="content">
+												<Link to={`/issues?name=${name}&owner=${owner}`}>
+													<h2>{name}</h2>
+													<p>{description}</p>
 												</Link>
 											</div>
 										);

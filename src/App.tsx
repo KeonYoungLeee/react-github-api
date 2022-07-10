@@ -21,7 +21,7 @@ const App = () => {
 					<Route path="/" element={<RepositoryPage />}>
 						<Route element={<RepositoryPage />} index />
 					</Route>
-					<Route path="/issues/:id" element={<IssuesPage />} />
+					<Route path="/issues" element={<IssuesPage />} />
 					<Route path="*" element={<Error404Page />} />
 				</Routes>
 			</BrowserRouter>
